@@ -9,10 +9,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cypress tests with debug logs
-        uses: cypress-io/github-action@v6
-        env:
-          DEBUG: "@cypress/github-action"
+      # - name: Cypress tests with debug logs
+      #   uses: cypress-io/github-action@v6
+      #   env:
+      #     DEBUG: "@cypress/github-action"
 
       - name: Cypress install
         uses: cypress-io/github-action@v6
@@ -21,12 +21,12 @@ jobs:
           runTests: false
           # build: npm run build
 
-      # - name: Save build folder
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: build
-      #     if-no-files-found: error
-      #     path: dist
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
 
   cypress-run:
     runs-on: ubuntu-22.04
