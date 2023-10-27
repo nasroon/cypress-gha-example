@@ -9,24 +9,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Cypress tests with debug logs
-      #   uses: cypress-io/github-action@v6
-      #   env:
-      #     DEBUG: "@cypress/github-action"
-
       - name: Cypress install
         uses: cypress-io/github-action@v6
         with:
           # Disable running of tests within install job
           runTests: false
           # build: npm run build
-
-      # - name: Save build folder
-      # uses: actions/upload-artifact@v3
-      # with:
-      #   name: build
-      #   if-no-files-found: error
-      #   path: dist
+      - uses: actions/upload-artifact@v3
+        # add the line below to store screenshots only on failures
+        # if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
 
   cypress-run:
     runs-on: ubuntu-22.04
@@ -40,11 +40,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # - name: Download the build folder
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: build
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
