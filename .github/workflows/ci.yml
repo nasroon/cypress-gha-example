@@ -11,6 +11,8 @@ jobs:
 
       - name: Cypress install
         uses: cypress-io/github-action@v6
+        env:
+          DEBUG: "@cypress/github-action"
         with:
           # Disable running of tests within install job
           runTests: false
